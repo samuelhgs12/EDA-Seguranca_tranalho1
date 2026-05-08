@@ -1,1 +1,1 @@
-# Project dependencies will be listed here.
+cryptography>=42,<46
