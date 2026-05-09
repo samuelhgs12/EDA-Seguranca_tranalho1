@@ -1,13 +1,13 @@
 # EDA-Seguranca_trabalho1
 
-Implementacao do envelope digital assinado (AES-128-CBC + RSA + SHA-512).
+Implementação do envelope digital assinado (AES-128-CBC + RSA + SHA-512).
 
 ## Requisitos
 
 - Python 3.10+
-- Dependencias em `requirements.txt`
+- Dependências em `requirements.txt`
 
-## Instalacao
+## Instalação
 
 ```bash
 pip install -r requirements.txt
@@ -17,54 +17,54 @@ pip install -r requirements.txt
 pip install -r requirements.txt
 ```
 
-## Uso (CLI)
+## Uso (interface de linha de comando)
 
 Execute a partir da raiz do projeto:
 
 ```bash
-python src/main.py --help
+python src/principal.py --ajuda
 ```
 
 ```powershell
-python src/main.py --help
+python src/principal.py --ajuda
 ```
 
 ### 1) Gerar par de chaves RSA (PEM)
 
 ```bash
-python src/main.py gen-keys --bits 2048 --private-out sender_priv.pem --public-out sender_pub.pem
+python src/principal.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
 ```
 
 ```powershell
-python src/main.py gen-keys --bits 2048 --private-out sender_priv.pem --public-out sender_pub.pem
+python src/principal.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
 ```
 
-Arquivos gerados (por padrao):
+Arquivos gerados quando apenas o nome do arquivo é informado:
 
-- `keys/sender_priv.pem`
-- `keys/sender_pub.pem`
+- `chaves/remetente_priv.pem`
+- `chaves/remetente_pub.pem`
 
-### 2) Criar envelope (seal)
+### 2) Criar envelope
 
-Entrada: texto em claro, chave publica do destinatario, chave privada do remetente.
-Saida: `.cif` (mensagem cifrada), `.env` (chave+IV cifrados), `.sig` (assinatura).
+Entrada: texto em claro, chave pública do destinatário e chave privada do remetente.
+Saída: `.cif` (mensagem cifrada), `.env` (chave+IV cifrados) e `.sig` (assinatura).
 
 ```bash
-python src/main.py seal \
-	--in mensagem.txt \
-	--dest-pub keys/dest_pub.pem \
-	--sender-priv keys/sender_priv.pem \
-	--out-dir envelope \
-	--base-name envelope
+python src/principal.py criar-envelope \
+    --entrada mensagem.txt \
+    --dest-publica chaves/destinatario_pub.pem \
+    --remet-privada chaves/remetente_priv.pem \
+    --diretorio-saida envelope \
+    --nome-base envelope
 ```
 
 ```powershell
-python src/main.py seal `
-    --in mensagem.txt `
-    --dest-pub keys/dest_pub.pem `
-    --sender-priv keys/sender_priv.pem `
-    --out-dir envelope `
-    --base-name envelope
+python src/principal.py criar-envelope `
+    --entrada mensagem.txt `
+    --dest-publica chaves/destinatario_pub.pem `
+    --remet-privada chaves/remetente_priv.pem `
+    --diretorio-saida envelope `
+    --nome-base envelope
 ```
 
 Arquivos gerados:
@@ -73,36 +73,36 @@ Arquivos gerados:
 - `envelope/envelope.env`
 - `envelope/envelope.sig`
 
-### 3) Abrir envelope (open)
+### 3) Abrir envelope
 
-Entrada: `.cif`, `.env`, `.sig`, chave privada do destinatario, chave publica do remetente.
-Saida: arquivo em claro e status da assinatura.
+Entrada: `.cif`, `.env`, `.sig`, chave privada do destinatário e chave pública do remetente.
+Saída: arquivo em claro e status da assinatura.
 
 ```bash
-python src/main.py open \
-	--cif envelope/envelope.cif \
-	--env envelope/envelope.env \
-	--sig envelope/envelope.sig \
-	--dest-priv keys/dest_priv.pem \
-	--sender-pub keys/sender_pub.pem \
-	--out-plain mensagem_out.txt
+python src/principal.py abrir-envelope \
+    --cif envelope/envelope.cif \
+    --env envelope/envelope.env \
+    --sig envelope/envelope.sig \
+    --dest-privada chaves/destinatario_priv.pem \
+    --remet-publica chaves/remetente_pub.pem \
+    --saida-claro mensagem_saida.txt
 ```
 
 ```powershell
-python src/main.py open `
+python src/principal.py abrir-envelope `
     --cif envelope/envelope.cif `
     --env envelope/envelope.env `
     --sig envelope/envelope.sig `
-    --dest-priv keys/dest_priv.pem `
-    --sender-pub keys/sender_pub.pem `
-    --out-plain mensagem_out.txt
+    --dest-privada chaves/destinatario_priv.pem `
+    --remet-publica chaves/remetente_pub.pem `
+    --saida-claro mensagem_saida.txt
 ```
 
-## Observacoes de formato
+## Observações de formato
 
 - AES-128-CBC com PKCS7.
 - Assinatura RSA com SHA-512 (PKCS1v15).
 - RSA para chave+IV: PKCS1v15.
-- A chave e o IV (16 bytes cada) sao concatenados em HEX e cifrados com RSA.
-- Os arquivos `.cif`, `.env` e `.sig` sao gravados em Base64.
-- O texto em claro e tratado como UTF-8.
+- A chave e o IV (16 bytes cada) são concatenados em HEX e cifrados com RSA.
+- Os arquivos `.cif`, `.env` e `.sig` são gravados em Base64.
+- O texto em claro é tratado como UTF-8.
