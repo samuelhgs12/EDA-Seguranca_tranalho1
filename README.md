@@ -1,1 +1,1 @@
-# EDA-Seguranca_tranalho1
+# EDA-Seguranca_trabalho1
