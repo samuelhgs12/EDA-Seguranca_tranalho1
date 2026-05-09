@@ -1,5 +1,3 @@
-"""Envelope file naming conventions and orchestration helpers."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -20,7 +18,7 @@ class EnvelopeArtifacts:
     signature: Path
 
 
-def build_envelope_paths(base_name: str, output_dir: str | Path = ".") -> EnvelopeArtifacts:
+def build_envelope_paths(base_name: str, output_dir: str | Path = "envelope") -> EnvelopeArtifacts:
     root = Path(output_dir)
     return EnvelopeArtifacts(
         encrypted_message=root / f"{base_name}.cif",

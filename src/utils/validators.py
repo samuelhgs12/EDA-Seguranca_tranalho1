@@ -1,5 +1,3 @@
-"""Validation helpers for envelope interoperability rules."""
-
 from __future__ import annotations
 
 from pathlib import Path

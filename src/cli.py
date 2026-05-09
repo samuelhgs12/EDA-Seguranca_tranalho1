@@ -1,5 +1,3 @@
-"""Command-line interface wiring for assignment conventions."""
-
 from __future__ import annotations
 
 import argparse
@@ -18,7 +16,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_seal.add_argument("--in", dest="infile", required=True)
     p_seal.add_argument("--dest-pub", required=True)
     p_seal.add_argument("--sender-priv", required=True)
-    p_seal.add_argument("--out-dir", default=".")
+    p_seal.add_argument("--out-dir", default="envelope")
     p_seal.add_argument("--base-name", default="envelope")
 
     p_open = subparsers.add_parser("open", help="Abrir envelope e verificar assinatura")
