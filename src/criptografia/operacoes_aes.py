@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 import secrets
-
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 

@@ -10,14 +10,14 @@ from criptografia.operacoes_aes import (
 )
 from criptografia.operacoes_assinatura import assinar_sha512_rsa, verificar_sha512_rsa
 from criptografia.operacoes_rsa import cifrar_rsa_pkcs1v15, decifrar_rsa_pkcs1v15
-from utilitarios.arquivos import gravar_arquivo_texto, ler_arquivo_texto
-from utilitarios.codificacao import (
+from utils.arquivos import gravar_arquivo_texto, ler_arquivo_texto
+from utils.codificacao import (
     de_base64,
     desempacotar_chave_iv_hex,
     empacotar_chave_iv_hex,
     para_base64,
 )
-from utilitarios.validadores import garantir_extensao_envelope_suportada
+from utils.validadores import garantir_extensao_envelope_suportada
 
 
 @dataclass(frozen=True)

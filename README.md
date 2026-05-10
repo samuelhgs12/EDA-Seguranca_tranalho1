@@ -22,21 +22,21 @@ pip install -r requirements.txt
 Execute a partir da raiz do projeto:
 
 ```bash
-python src/principal.py --ajuda
+python src/main.py --ajuda
 ```
 
 ```powershell
-python src/principal.py --ajuda
+python src/main.py --ajuda
 ```
 
 ### 1) Gerar par de chaves RSA (PEM)
 
 ```bash
-python src/principal.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
+python src/main.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
 ```
 
 ```powershell
-python src/principal.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
+python src/main.py gerar-chaves --tamanho 2048 --privada-saida remetente_priv.pem --publica-saida remetente_pub.pem
 ```
 
 Arquivos gerados quando apenas o nome do arquivo é informado:
@@ -50,7 +50,7 @@ Entrada: texto em claro, chave pública do destinatário e chave privada do reme
 Saída: `.cif` (mensagem cifrada), `.env` (chave+IV cifrados) e `.sig` (assinatura).
 
 ```bash
-python src/principal.py criar-envelope \
+python src/main.py criar-envelope \
     --entrada mensagem.txt \
     --dest-publica chaves/destinatario_pub.pem \
     --remet-privada chaves/remetente_priv.pem \
@@ -59,7 +59,7 @@ python src/principal.py criar-envelope \
 ```
 
 ```powershell
-python src/principal.py criar-envelope `
+python src/main.py criar-envelope `
     --entrada mensagem.txt `
     --dest-publica chaves/destinatario_pub.pem `
     --remet-privada chaves/remetente_priv.pem `
@@ -79,7 +79,7 @@ Entrada: `.cif`, `.env`, `.sig`, chave privada do destinatário e chave pública
 Saída: arquivo em claro e status da assinatura.
 
 ```bash
-python src/principal.py abrir-envelope \
+python src/main.py abrir-envelope \
     --cif envelope/envelope.cif \
     --env envelope/envelope.env \
     --sig envelope/envelope.sig \
@@ -89,7 +89,7 @@ python src/principal.py abrir-envelope \
 ```
 
 ```powershell
-python src/principal.py abrir-envelope `
+python src/main.py abrir-envelope `
     --cif envelope/envelope.cif `
     --env envelope/envelope.env `
     --sig envelope/envelope.sig `

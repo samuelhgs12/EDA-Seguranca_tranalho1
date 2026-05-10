@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from pathlib import Path
 
 from criptografia.operacoes_envelope import (
@@ -13,8 +12,8 @@ from criptografia.operacoes_rsa import (
     carregar_chave_publica,
     gerar_par_chaves_rsa_pem,
 )
-from interface_linha_comando import construir_analisador
-from utilitarios.arquivos import gravar_arquivo_texto
+from cli import construir_analisador
+from utils.arquivos import gravar_arquivo_texto
 
 
 def _ler_bytes(caminho: str | Path) -> bytes:
@@ -36,7 +35,7 @@ def _resolver_saida_chave(caminho: str | Path, diretorio_chaves: str | Path = "c
     return destino
 
 
-def principal() -> int:
+def main() -> int:
     argumentos = construir_analisador().parse_args()
 
     try:
@@ -96,4 +95,4 @@ def principal() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(principal())
+    raise SystemExit(main())
